@@ -1,14 +1,10 @@
 package com.test.redisconfiguration.controller;
 
-import com.test.redisconfiguration.core.result.DataResult;
-import com.test.redisconfiguration.core.result.Result;
 import com.test.redisconfiguration.model.User;
 import com.test.redisconfiguration.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,23 +13,23 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/getall")
-    public DataResult<List<User>> getAll(){
-        return userService.getAll();
+    @GetMapping
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(userService.getAll());
     }
 
-    @GetMapping("/getbyid/{id}")
-    public DataResult<Optional<User>> findById(@PathVariable Long id) {
-        return userService.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findById(id));
     }
 
-    @PostMapping("/save")
-    public Result saveUser(@RequestBody User user){
-        return userService.add(user);
+    @PostMapping
+    public ResponseEntity<?> saveUser(@RequestBody User user){
+        return ResponseEntity.ok(userService.add(user));
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Result delete(@PathVariable Long id){
-        return userService.delete(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        return ResponseEntity.ok(userService.delete(id));
     }
 }
